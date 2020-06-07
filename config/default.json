@@ -1,5 +1,6 @@
 {
   "application": {
     "port": 20000
-  }
+  },
+  "cors": true
 }

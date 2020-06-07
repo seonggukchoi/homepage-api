@@ -3,10 +3,12 @@ import * as config from 'config';
 
 import { AppModule } from './app.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+async function bootstrap(): Promise<void> {
+  const applicationPort = config.get<number>('application.port');
+  const cors = config.get<boolean>('cors');
 
-  await app.listen(config.get<number>('application.port'));
+  const app = await NestFactory.create(AppModule, { cors });
+  await app.listen(applicationPort);
 }
 
 bootstrap();
