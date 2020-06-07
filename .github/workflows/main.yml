@@ -33,11 +33,8 @@ jobs:
     - name: Run Build
       run: npm run build
 
-    - name: Debug
-      run: ls -alF
-
     - name: Generate Deployment Package
-      run: zip ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip ./*
+      run: zip -r -1 ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip ./*
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v10
