@@ -1,0 +1,48 @@
+name: Deploy App
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: [12.16.1]
+        os: [ubuntu-latest]
+
+    steps:
+    - name: Get Current Timestamp
+      id: timestamp
+      run: echo "::set-output name=timestamp::$(date +%s)"
+
+    - name: Checkout to Branch
+      uses: actions/checkout@v2.2.0
+    
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1.4.2
+      with:
+        node-version: ${{ matrix.node_version }}
+        
+    - name: Install NPM Packages
+      run: npm ci
+
+    - name: Run Build
+      run: npm run build
+
+    - name: Generate Deployment Package
+      run: zip ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip ./*
+
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v10
+      env:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: ${{ secrets.AWS_EB_APPLICATION_NAME }}
+        environment_name: ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}
+        region: ap-northeast-2
+        deployment_package: ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip
+        version_label: ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}
