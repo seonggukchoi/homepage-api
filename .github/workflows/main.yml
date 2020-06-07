@@ -33,6 +33,9 @@ jobs:
     - name: Run Build
       run: npm run build
 
+    - name: Debug
+      run: ls -alF
+
     - name: Generate Deployment Package
       run: zip ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip ./*
 
