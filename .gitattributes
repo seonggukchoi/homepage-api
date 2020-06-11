@@ -1,3 +1,2 @@
 .gitattributes !filter !diff
 config/production.* filter=git-crypt diff=git-crypt
-git-crypt-test/* filter=git-crypt diff=git-crypt
