@@ -14,28 +14,27 @@ export class ProjectEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column('int', { nullable: false })
+  @Column('int', { default: 9999 })
   public order: number;
 
-  @Column('varchar', { length: 50, nullable: false })
+  @Column('varchar', { length: 50 })
   public name: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   public description: string | null;
 
-  @Column('date')
+  @Column('date', { nullable: true })
   public from: Date | null;
 
-  @Column('date')
+  @Column('date', { nullable: true })
   public to: Date | null;
 
-  @Column('enum', { enum: ProjectStatusType, nullable: false })
+  @Column('enum', { enum: ProjectStatusType })
   public status: ProjectStatusType;
 
   @Column('datetime', {
     name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: false,
   })
   public createdAt: Date;
 
@@ -43,18 +42,21 @@ export class ProjectEntity {
     name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
     onUpdate: 'CURRENT_TIMESTAMP',
-    nullable: false,
   })
   public updatedAt: Date;
 
-  @OneToMany(type => ProjectRoleEntity, projectRoleEntity => projectRoleEntity.id)
+  @OneToMany(
+    type => ProjectRoleEntity,
+    projectRoleEntity => projectRoleEntity.project,
+    { cascade: true },
+  )
   public roles: ProjectRoleEntity[];
 
-  @ManyToMany(type => StackEntity)
+  @ManyToMany(type => StackEntity, { cascade: true })
   @JoinTable()
   public stacks: StackEntity[];
 
-  @ManyToMany(type => OrganizationEntity)
+  @ManyToMany(type => OrganizationEntity, { cascade: true })
   @JoinTable()
   public organizations: OrganizationEntity[];
 }

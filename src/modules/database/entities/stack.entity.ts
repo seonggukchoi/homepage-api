@@ -7,13 +7,12 @@ export class StackEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column('varchar', { length: 50, nullable: false })
+  @Column('varchar', { length: 50 })
   public name: string;
 
   @Column('datetime', {
     name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
-    nullable: false,
   })
   public createdAt: Date;
 
@@ -21,10 +20,9 @@ export class StackEntity {
     name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
     onUpdate: 'CURRENT_TIMESTAMP',
-    nullable: false,
   })
   public updatedAt: Date;
 
-  @ManyToMany(type => ProjectEntity)
+  @ManyToMany(type => ProjectEntity, { cascade: true })
   public projects: ProjectEntity[];
 }
