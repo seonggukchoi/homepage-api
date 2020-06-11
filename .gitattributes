@@ -1,1 +1,2 @@
-config/production.json filter=git-crypt diff=git-crypt
+.gitattributes !filter !diff
+config/production.* filter=git-crypt diff=git-crypt
