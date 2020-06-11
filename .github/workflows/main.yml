@@ -26,7 +26,12 @@ jobs:
       uses: actions/setup-node@v1.4.2
       with:
         node-version: ${{ matrix.node_version }}
-        
+
+    - name: Unlock git-crypt
+      uses: sliteteam/github-action-git-crypt-unlock@1.0.2
+      env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+
     - name: Install NPM Packages
       run: npm ci
 
