@@ -13,7 +13,7 @@ module.exports = {
     password: 'HomepageApi2020!',
     database: 'homepage',
     migrationsTableName: '_migrations',
-    migrations: ['../migrations/*.ts'],
+    migrations: ['./src/migrations/*.ts'],
     synchronize: true,
     logging: ['query', 'error'],
     extra: {
