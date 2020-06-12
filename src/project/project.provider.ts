@@ -11,18 +11,48 @@ export class ProjectProvider {
   ) { }
 
   public async getProjects(): Promise<ProjectEntity[]> {
-    const projectEntities = await this.projectRepository.find({
-      relations: ['roles', 'stacks', 'organizations'],
-      order: { order: 'ASC', id: 'ASC' },
-    });
+    const projectEntities = await this.projectRepository.createQueryBuilder('projects')
+      .leftJoin('projects.roles', 'roles')
+      .leftJoin('projects.organizations', 'organizations')
+      .leftJoin('projects.stacks', 'stacks')
+      .select([
+        'projects.id',
+        'projects.order',
+        'projects.name',
+        'projects.description',
+        'projects.from',
+        'projects.to',
+        'projects.status',
+      ])
+      .addSelect(['roles.id', 'roles.name'])
+      .addSelect(['organizations.id', 'organizations.name', 'organizations.url'])
+      .addSelect(['stacks.id', 'stacks.name'])
+      .addOrderBy('projects.order', 'ASC')
+      .addOrderBy('projects.id', 'ASC')
+      .getMany();
 
     return projectEntities;
   }
 
   public async getProject(projectId: number): Promise<ProjectEntity | null> {
-    const projectEntity = await this.projectRepository.findOne({
-      where: { id: projectId },
-    });
+    const projectEntity = await this.projectRepository.createQueryBuilder('projects')
+      .leftJoin('projects.roles', 'roles')
+      .leftJoin('projects.organizations', 'organizations')
+      .leftJoin('projects.stacks', 'stacks')
+      .where('projects.id = :projectId', { projectId })
+      .select([
+        'projects.id',
+        'projects.order',
+        'projects.name',
+        'projects.description',
+        'projects.from',
+        'projects.to',
+        'projects.status',
+      ])
+      .addSelect(['roles.id', 'roles.name'])
+      .addSelect(['organizations.id', 'organizations.name', 'organizations.url'])
+      .addSelect(['stacks.id', 'stacks.name'])
+      .getOne();
 
     return projectEntity;
   }
