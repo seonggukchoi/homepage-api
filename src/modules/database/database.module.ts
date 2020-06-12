@@ -1,6 +1,7 @@
 import { Module, Global } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as config from 'config';
+
 import { entities } from './entities';
 
 const databaseConfig = config.get<TypeOrmModuleOptions>('database');
