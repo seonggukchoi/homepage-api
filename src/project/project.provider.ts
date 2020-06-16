@@ -7,11 +7,13 @@ import { ProjectEntity } from '@/modules/database/entities';
 @Injectable()
 export class ProjectProvider {
   constructor(
-    @InjectRepository(ProjectEntity) private readonly projectRepository: Repository<ProjectEntity>,
-  ) { }
+    @InjectRepository(ProjectEntity)
+    private readonly projectRepository: Repository<ProjectEntity>,
+  ) {}
 
   public async getProjects(): Promise<ProjectEntity[]> {
-    const projectEntities = await this.projectRepository.createQueryBuilder('projects')
+    const projectEntities = await this.projectRepository
+      .createQueryBuilder('projects')
       .leftJoin('projects.roles', 'roles')
       .leftJoin('projects.organizations', 'organizations')
       .leftJoin('projects.stacks', 'stacks')
@@ -45,7 +47,8 @@ export class ProjectProvider {
   }
 
   public async getProject(projectId: number): Promise<ProjectEntity | null> {
-    const projectEntity = await this.projectRepository.createQueryBuilder('projects')
+    const projectEntity = await this.projectRepository
+      .createQueryBuilder('projects')
       .leftJoin('projects.roles', 'roles')
       .leftJoin('projects.organizations', 'organizations')
       .leftJoin('projects.stacks', 'stacks')

@@ -17,4 +17,4 @@ const typeOrmConfig = <TypeOrmModuleOptions>{ ...databaseConfig, entities };
   controllers: [],
   providers: [],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

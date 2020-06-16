@@ -7,14 +7,9 @@ import { HealthModule } from './health/health.module';
 import { ProjectModule } from './project/project.module';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    AuthModule,
-    HealthModule,
-    ProjectModule,
-  ],
+  imports: [DatabaseModule, AuthModule, HealthModule, ProjectModule],
   exports: [],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

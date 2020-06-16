@@ -32,6 +32,9 @@ export class ProjectRoleEntity {
   })
   public updatedAt: Date;
 
-  @ManyToOne(type => ProjectEntity, projectEntity => projectEntity.roles)
+  @ManyToOne(
+    type => ProjectEntity,
+    projectEntity => projectEntity.roles,
+  )
   public project: ProjectEntity;
 }

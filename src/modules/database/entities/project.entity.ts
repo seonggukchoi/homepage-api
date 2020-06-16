@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 import { ProjectRoleEntity } from './project-role.entity';
 import { StackEntity } from './stack.entity';
