@@ -17,10 +17,10 @@ module.exports = {
     synchronize: true,
     logging: ['query', 'error'],
     extra: {
-      connectionLimit: 30
+      connectionLimit: 30,
     },
     cli: {
-      migrationsDir: 'migrations'
-    }
-  }
+      migrationsDir: 'migrations',
+    },
+  },
 };
