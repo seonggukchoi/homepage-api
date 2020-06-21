@@ -22,6 +22,7 @@
     "semi": ["error", "always"],
     "comma-dangle": ["warn", "always-multiline"],
     "space-before-function-paren": "off",
+    "no-use-before-define": "off",
     "@typescript-eslint/semi": ["error", "always"],
     "@typescript-eslint/indent": ["warn", 2],
     "@typescript-eslint/interface-name-prefix": ["error", { "prefixWithI": "always", "allowUnderscorePrefix": true }],
@@ -35,6 +36,7 @@
       "named": "never",
       "asyncArrow": "always"
     }],
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false, "classes": false }],
     "jest/no-test-callback": ["off"]
   }
 }
