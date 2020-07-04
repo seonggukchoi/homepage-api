@@ -40,7 +40,7 @@ jobs:
 
     - name: Generate Deployment Package
       run: |
-        git archive -v -o ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip --format=zip HEAD
+        zip ${{ secrets.AWS_EB_ENVIRONMENT_NAME }}-${{steps.timestamp.outputs.timestamp}}.zip -r -q * .[^.]*
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v10
