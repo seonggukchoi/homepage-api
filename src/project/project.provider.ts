@@ -26,18 +26,8 @@ export class ProjectProvider {
         'projects.to',
         'projects.status',
       ])
-      .addSelect([
-        'roles.id',
-        'roles.name',
-        'roles.contributionPercentage',
-        'roles.from',
-        'roles.to',
-      ])
-      .addSelect([
-        'organizations.id',
-        'organizations.name',
-        'organizations.url',
-      ])
+      .addSelect(['roles.id', 'roles.name', 'roles.contributionPercentage', 'roles.from', 'roles.to'])
+      .addSelect(['organizations.id', 'organizations.name', 'organizations.url'])
       .addSelect(['stacks.id', 'stacks.name'])
       .addOrderBy('projects.order', 'ASC')
       .addOrderBy('projects.id', 'ASC')
@@ -71,18 +61,8 @@ export class ProjectProvider {
         'projects.to',
         'projects.status',
       ])
-      .addSelect([
-        'roles.id',
-        'roles.name',
-        'roles.contributionPercentage',
-        'roles.from',
-        'roles.to',
-      ])
-      .addSelect([
-        'organizations.id',
-        'organizations.name',
-        'organizations.url',
-      ])
+      .addSelect(['roles.id', 'roles.name', 'roles.contributionPercentage', 'roles.from', 'roles.to'])
+      .addSelect(['organizations.id', 'organizations.name', 'organizations.url'])
       .getOne();
 
     return projectEntity;

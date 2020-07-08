@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Get, Param, HttpException, HttpStatus } from '@nestjs/common';
 
 import { ProjectProvider } from './project.provider';
 
@@ -19,19 +13,14 @@ export class ProjectController {
     try {
       projects = await this.projectProvider.getProjects();
     } catch (error) {
-      throw new HttpException(
-        'Cannot fetch project list from database.',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException('Cannot fetch project list from database.', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     return projects;
   }
 
   @Get('/:projectId')
-  public async getProject(
-    @Param('projectId') projectId: number,
-  ): Promise<object> {
+  public async getProject(@Param('projectId') projectId: number): Promise<object> {
     projectId = Number(projectId);
 
     let project: object | null;
@@ -39,10 +28,7 @@ export class ProjectController {
     try {
       project = await this.projectProvider.getProject(projectId);
     } catch (error) {
-      throw new HttpException(
-        'Cannot fetch project from database.',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new HttpException('Cannot fetch project from database.', HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     if (!project) {
